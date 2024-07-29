@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de Arreglo</title>
+    <style>
+        body {
+            background-image: url('fondo 1.jpg');
+            background-size: 100%; 
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 20px; 
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    
+        .container:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+    
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+    
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 25px;
+        }
+    
+        input[type="text"], input[type="number"] {
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+    
+        button {
+            padding: 12px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.3s ease-in-out;
+        }
+    
+        button:hover {
+            background-color: #2980b9;
+        }
+    
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    
+        li {
+            background: #ecf0f1;
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Filtro de Mayores de Edad</h1>
+        <form id="person-form">
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="number" id="edad" placeholder="Edad" required>
+            <button type="submit">Agregar Persona</button>
+        </form>
+        <button id="filtrar">Filtrar Mayores de Edad</button>
+        <h2>Lista de Personas</h2>
+        <ul id="lista-personas"></ul>
+        <h2>Mayores de Edad</h2>
+        <ul id="lista-mayores"></ul>
+    </div>
+    <script>document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('person-form');
+        const listaPersonas = document.getElementById('lista-personas');
+        const listaMayores = document.getElementById('lista-mayores');
+        const filtrarButton = document.getElementById('filtrar');
+        
+        let personas = [];
+    
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const edad = document.getElementById('edad').value;
+    
+            if (nombre && edad) {
+                const persona = { nombre, edad: parseInt(edad) };
+                personas.push(persona);
+                agregarPersonaALista(persona, listaPersonas);
+                form.reset();
+            }
+        });
+    
+        filtrarButton.addEventListener('click', function () {
+            const mayores = filtrarMayoresDeEdad(personas);
+            listaMayores.innerHTML = '';
+            mayores.forEach(persona => agregarPersonaALista(persona, listaMayores));
+        });
+    
+        function agregarPersonaALista(persona, lista) {
+            const li = document.createElement('li');
+            li.textContent = `${persona.nombre} - ${persona.edad} años`;
+            lista.appendChild(li);
+        }
+    
+        function filtrarMayoresDeEdad(personas) {
+            return personas.filter(persona => persona.edad >= 18);
+        }
+    });
+    </script>
+</body>
+</html>

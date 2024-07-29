@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenar por Propiedad</title>
+    <style>
+        body {
+            background-image: url('fondo 1.jpg');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            background-color: #e0f7e9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    
+        .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+    
+        h1 {
+            color: #000000;
+            margin-bottom: 15px;
+        }
+    
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.3s ease-in-out;
+        }
+    
+        button:hover {
+            background-color: #89b7e8;
+        }
+    
+        input, select {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 22px);
+        }
+    
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        li {
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <h1>Ordenar por Propiedad</h1>
+        <input type="text" id="propiedad" placeholder="Escriba el nombre de la propiedad">
+        <button id="ordenar">Ordenar</button>
+        <h2>Objetos</h2>
+        <ul id="lista-objetos">
+            <li>Nombre: Cristian, Edad: 22</li>
+            <li>Nombre: Miguel, Edad: 22</li>
+            <li>Nombre: Jesus, Edad: 28</li>
+            <li>Nombre: Luis, Edad: 30</li>
+            <li>Nombre: Isaac, Edad: 40</li>
+        </ul>
+    </div>
+    <script>
+        document.getElementById('ordenar').addEventListener('click', () => {
+            const propiedad = document.getElementById('propiedad').value.toLowerCase();
+            const objetos = [
+                { nombre: 'Cristian', edad: 20 },
+                { nombre: 'Miguel', edad: 22 },
+                { nombre: 'Jesus', edad: 28 },
+                { nombre: 'Luis', edad: 30 },
+                { nombre: 'Isaac', edad: 40 }
+            ];
+            const objetosOrdenados = ordenarPorPropiedad(objetos, propiedad);
+            mostrarObjetos(objetosOrdenados);
+        });
+
+        function ordenarPorPropiedad(arr, propiedad) {
+            return arr.slice().sort((a, b) => {
+                if (a[propiedad] < b[propiedad]) return -1;
+                if (a[propiedad] > b[propiedad]) return 1;
+                return 0;
+            });
+        }
+
+        function mostrarObjetos(objetos) {
+            const lista = document.getElementById('lista-objetos');
+            lista.innerHTML = '';
+            objetos.forEach(obj => {
+                const li = document.createElement('li');
+                li.textContent = `Nombre: ${obj.nombre}, Edad: ${obj.edad}`;
+                lista.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
+
